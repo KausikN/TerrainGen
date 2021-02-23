@@ -47,31 +47,46 @@ WorldSize = (256, 256)
 
 GenFunc = functools.partial(GeneratePerlinNoise_2D, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, base=0)
 
-DepthFunc = Utils.DepthFunc_GreyScaleDepth
+ColoriseFunc = functools.partial(Utils.ColoriseTerrain2D_ArchipelagoSimple, beachThresh=[0.25, 0.4])
+
+DepthFunc = functools.partial(Utils.DepthFunc_GreyScaleDepth)
 DepthScale = 100
 ExportDepthMultiplier = 1
 
 savePath = 'GeneratedVisualisations/'
 saveName = 'Terrain_1'
 
+normalise = True
 display = True
-save = True
+export3DModel = True
 # Params
 
 # RunCode
+print("Generating Values...")
 I_Noise = GenFunc(WorldSize)
+
+# Normalise values to [0, 1]
+if normalise:
+    print("Normalising Values...")
+    print("Value Range:", np.min(I_Noise), "to", np.max(I_Noise))
+    I_Noise = (I_Noise - np.min(I_Noise)) / (np.max(I_Noise) - np.min(I_Noise))
 
 if display:
     plt.imshow((I_Noise*255).astype(np.uint8), 'gray')
     plt.show()
 
-if save:
+if ColoriseFunc is not None:
+    I_Colorised = ColoriseFunc(I_Noise)
+    if display:
+        plt.imshow(I_Colorised.astype(np.uint8), 'gray')
+        plt.show()
+
+if export3DModel:
     print("Calculating Depths...")
     Depths = DepthFunc(I_Noise) * DepthScale
 
-
-
     print("Exporting...")
-    Texture = (I_Noise*255).astype(np.uint8)
-    cv2.imwrite(savePath + saveName + '.png', Texture)
+    # Texture = (I_Noise*255).astype(np.uint8)
+    Texture = I_Colorised.astype(np.uint8)
+    cv2.imwrite(savePath + saveName + '.png', cv2.cvtColor(Texture, cv2.COLOR_BGR2RGB))
     mesh = MeshLibrary.DepthImage_to_Terrain(Depths*ExportDepthMultiplier, I_Noise, savePath + saveName + '.png', name=saveName, exportPath=savePath + saveName + '.obj')

@@ -1,5 +1,5 @@
 # TerrainGen
- A 3D Terrain Generator Tool using python
+ A 2D and 3D realistic Terrain Generator Tool using python
 
 # Generate 2D Terrains
 

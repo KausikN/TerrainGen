@@ -43,11 +43,11 @@ def GeneratePerlinNoise_3D_From2D(WorldSize, scale=100.0, octaves=6, persistence
 
 # Driver Code
 # Params
-WorldSize = (512, 512)
+WorldSize = (256, 256)
 
 GenFunc = functools.partial(GeneratePerlinNoise_2D, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, base=0)
 
-MaskFunc = functools.partial(Utils.Mask_CircularSmooth, r=0.75, s1=2.0, s2=200)
+MaskFunc = None#functools.partial(Utils.Mask_CircularSmooth, r=0.75, s1=2.0, s2=200)
 
 ColoriseFunc = functools.partial(Utils.ColoriseTerrain2D_ArchipelagoSimple, thresholds=[0.25, 0.4, 0.85, 0.95])
 

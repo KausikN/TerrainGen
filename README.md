@@ -21,4 +21,4 @@
 
  - Generate 3D models from perlin noise terrains and export as OBJ files
 
- ![3D Terrain](GeneratedVisualisations/3DTerrain.png)
+ ![3D Terrain](GeneratedVisualisations/3DTerrain.PNG)

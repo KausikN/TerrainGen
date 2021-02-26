@@ -41,81 +41,91 @@ def GeneratePerlinNoise_3D_From2D(WorldSize, scale=100.0, octaves=6, persistence
     Noise = np.dstack(tuple(vals))
     return Noise
 
-# Driver Code
-# Params
-WorldSize = (256, 256)
+def main(WorldSize, Funcs, savePath, saveName, DepthScale=100, ExportDepthMultiplier=1, normalise=True, display=True, save=False, export3DModel=False):
+    GenFunc, MaskFunc, ColoriseFunc, DepthFunc = Funcs['Gen'], Funcs['Mask'], Funcs['Colorise'], Funcs['Depth']
 
-GenFunc = functools.partial(GeneratePerlinNoise_2D, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, base=0)
-
-MaskFunc = None#functools.partial(Utils.Mask_CircularSmooth, r=0.75, s1=2.0, s2=200)
-
-ColoriseFunc = functools.partial(Utils.ColoriseTerrain2D_ArchipelagoSimple, thresholds=[0.25, 0.4, 0.85, 0.95])
-
-DepthFunc = functools.partial(Utils.DepthFunc_GreyScaleDepth)
-DepthScale = 100
-ExportDepthMultiplier = 1
-
-savePath = 'GeneratedVisualisations/'
-saveName = 'Terrain_1'
-
-normalise = True
-display = True
-save = True
-export3DModel = False
-# Params
-
-# RunCode
-print("Generating Values...")
-I_Noise = GenFunc(WorldSize)
-
-# Normalise values to [0, 1]
-if normalise:
-    print("Normalising Values...")
-    print("Value Range:", np.min(I_Noise), "to", np.max(I_Noise))
-    I_Noise = (I_Noise - np.min(I_Noise)) / (np.max(I_Noise) - np.min(I_Noise))
-
-if save:
-    cv2.imwrite(savePath + saveName + "_Values" + '.png', cv2.cvtColor((I_Noise*255).astype(np.uint8), cv2.COLOR_BGR2RGB))
-if display:
-    plt.imshow((I_Noise*255).astype(np.uint8), 'gray')
-    plt.show()
-
-if MaskFunc is not None:
-    print("Masking Values...")
-    I_Masked = MaskFunc(I_Noise)
-    print("Masked Value Range:", np.min(I_Masked), "to", np.max(I_Masked))
+    print("Generating Values...")
+    I_Noise = GenFunc(WorldSize)
 
     # Normalise values to [0, 1]
     if normalise:
-        print("Normalising Masked Values...")
-        print("Value Range:", np.min(I_Masked), "to", np.max(I_Masked))
-        I_Masked = (I_Masked - np.min(I_Masked)) / (np.max(I_Masked) - np.min(I_Masked))
+        print("Normalising Values...")
+        print("Value Range:", np.min(I_Noise), "to", np.max(I_Noise))
+        I_Noise = (I_Noise - np.min(I_Noise)) / (np.max(I_Noise) - np.min(I_Noise))
 
     if save:
-        cv2.imwrite(savePath + saveName + "_Masked" + '.png', cv2.cvtColor((I_Masked*255).astype(np.uint8), cv2.COLOR_BGR2RGB))
+        cv2.imwrite(savePath + saveName + "_Values" + '.png', cv2.cvtColor((I_Noise*255).astype(np.uint8), cv2.COLOR_BGR2RGB))
     if display:
-        plt.imshow((I_Masked*255).astype(np.uint8), 'gray')
-        plt.show()
+        plt.subplot(1, 3, 1)
+        plt.imshow((I_Noise*255).astype(np.uint8), 'gray')
+        # plt.show()
 
-    I_Noise = I_Masked
+    if MaskFunc is not None:
+        print("Masking Values...")
+        I_Masked = MaskFunc(I_Noise)
+        print("Masked Value Range:", np.min(I_Masked), "to", np.max(I_Masked))
+
+        # Normalise values to [0, 1]
+        if normalise:
+            print("Normalising Masked Values...")
+            print("Value Range:", np.min(I_Masked), "to", np.max(I_Masked))
+            I_Masked = (I_Masked - np.min(I_Masked)) / (np.max(I_Masked) - np.min(I_Masked))
+
+        if save:
+            cv2.imwrite(savePath + saveName + "_Masked" + '.png', cv2.cvtColor((I_Masked*255).astype(np.uint8), cv2.COLOR_BGR2RGB))
+        if display:
+            plt.subplot(1, 3, 2)
+            plt.imshow((I_Masked*255).astype(np.uint8), 'gray')
+            # plt.show()
+
+        I_Noise = I_Masked
 
 
-if ColoriseFunc is not None:
-    print("Colorising Values...")
-    I_Colorised = ColoriseFunc(I_Noise)
+    if ColoriseFunc is not None:
+        print("Colorising Values...")
+        I_Colorised = ColoriseFunc(I_Noise)
 
-    if save:
-        cv2.imwrite(savePath + saveName + "_Colorised" + '.png', cv2.cvtColor(I_Colorised.astype(np.uint8), cv2.COLOR_BGR2RGB))
-    if display:
-        plt.imshow(I_Colorised.astype(np.uint8), 'gray')
-        plt.show()
+        if save:
+            cv2.imwrite(savePath + saveName + "_Colorised" + '.png', cv2.cvtColor(I_Colorised.astype(np.uint8), cv2.COLOR_BGR2RGB))
+        if display:
+            plt.subplot(1, 3, 3)
+            plt.imshow(I_Colorised.astype(np.uint8), 'gray')
+            # plt.show()
 
-if export3DModel:
-    print("Calculating Depths...")
-    Depths = DepthFunc(I_Noise) * DepthScale
+    if export3DModel:
+        print("Calculating Depths...")
+        Depths = DepthFunc(I_Noise) * DepthScale
 
-    print("Exporting...")
-    # Texture = (I_Noise*255).astype(np.uint8)
-    Texture = I_Colorised.astype(np.uint8)
-    cv2.imwrite(savePath + saveName + '.png', cv2.cvtColor(Texture, cv2.COLOR_BGR2RGB))
-    mesh = MeshLibrary.DepthImage_to_Terrain(Depths*ExportDepthMultiplier, I_Noise, savePath + saveName + '.png', name=saveName, exportPath=savePath + saveName + '.obj')
+        print("Exporting...")
+        # Texture = (I_Noise*255).astype(np.uint8)
+        Texture = I_Colorised.astype(np.uint8)
+        cv2.imwrite(savePath + saveName + '.png', cv2.cvtColor(Texture, cv2.COLOR_BGR2RGB))
+        mesh = MeshLibrary.DepthImage_to_Terrain(Depths*ExportDepthMultiplier, I_Noise, savePath + saveName + '.png', name=saveName, exportPath=savePath + saveName + '.obj')
+    plt.show()
+
+# # Driver Code
+# # Params
+# WorldSize = (256, 256)
+
+# GenFunc = functools.partial(GeneratePerlinNoise_2D, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, base=1)
+
+# MaskFunc = None#functools.partial(Utils.Mask_CircularSmooth, r=0.75, s1=2.0, s2=200)
+
+# ColoriseFunc = functools.partial(Utils.ColoriseTerrain2D_ArchipelagoSimple, thresholds=[0.25, 0.4, 0.85, 0.95])
+
+# DepthFunc = functools.partial(Utils.DepthFunc_GreyScaleDepth)
+# DepthScale = 100
+# ExportDepthMultiplier = 1
+
+# savePath = 'GeneratedVisualisations/'
+# saveName = 'Terrain_1'
+
+# normalise = True
+# display = True
+# save = False
+# export3DModel = False
+# # Params
+
+# # RunCode
+# Funcs = {"Gen": GenFunc, "Mask": MaskFunc, "Colorise": ColoriseFunc, "Depth": DepthFunc}
+# main(WorldSize, Funcs, savePath, DepthScale=DepthScale, ExportDepthMultiplier=ExportDepthMultiplier, normalise=normalise, display=display, save=save, export3DModel=export3DModel)

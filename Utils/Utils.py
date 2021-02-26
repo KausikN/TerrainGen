@@ -9,6 +9,8 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 
 # Main Functions
+Nothing = None
+
 # Depth Functions
 def DepthFunc_GreyScaleDepth(I, options=None):
     if I.ndim == 3:

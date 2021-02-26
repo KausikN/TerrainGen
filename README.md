@@ -1,6 +1,12 @@
 # TerrainGen
  A 2D and 3D realistic Terrain Generator Tool using python
 
+# TerrainGen UI
+
+ - Generate Terrains using UI easily
+
+    ![TerrainGen UI](DocImages/TerrainGenUI.PNG)
+
 # Generate 2D Terrains
 
  - Uses Perlin Noise to generate realistic looking terrain maps

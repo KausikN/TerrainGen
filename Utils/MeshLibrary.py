@@ -5,7 +5,7 @@ Functions for 3D Processing
 # Imports
 import os
 import cv2
-import open3d
+# import open3d
 import numpy as np
 
 # Main Functions

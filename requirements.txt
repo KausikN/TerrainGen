@@ -1,3 +1,7 @@
 streamlit
-requests
+numpy
 opencv-python-headless
+noise
+matplotlib
+tqdm
+open3d

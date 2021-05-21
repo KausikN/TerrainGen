@@ -1,0 +1,18 @@
+{
+    "PROJECT_NAME": "TerrainGen",
+    "PROJECT_LINK": "https://github.com/KausikN/TerrainGen",
+
+    "PROJECT_DESC": [
+        "A 2D and 3D realistic Terrain Generator Tool using python",
+        "## Parameter Definitions",
+        "   - Seed: Seed for random generation",
+        "   - Scale: Amount of Zoom In",
+        "   - Octaves: Number of levels of detail",
+        "   - Persistence: Amount of contribution of each octave (amplitude)",
+        "   - Lacunarity: Amount of detail added/removed at each octave (frequency)"
+    ],
+
+    "PROJECT_README": "README.md",
+
+    "PROJECT_MODES": ["Generate 2D Perlin Noise", "Generate Terrain", "Generate 3D Landscape"]
+}

@@ -16,7 +16,7 @@ from Utils import MeshLibrary
 # Main Functions
 def GeneratePerlinNoise_2D(WorldSize, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, repeatx=1024, repeaty=1024, base=0):
     world = np.zeros((WorldSize[0], WorldSize[1]))
-    for i in tqdm(range(WorldSize[0])):
+    for i in tqdm(range(WorldSize[0]), disable=True):
         for j in range(WorldSize[1]):
             world[i][j] = noise.pnoise2(i/scale, j/scale,
             octaves=octaves, persistence=persistence, lacunarity=lacunarity, repeatx=repeatx, repeaty=repeaty, base=base)
@@ -25,7 +25,7 @@ def GeneratePerlinNoise_2D(WorldSize, scale=100.0, octaves=6, persistence=0.5, l
 
 def GeneratePerlinNoise_3D(WorldSize, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, repeatx=1024, repeaty=1024, repeatz=1024, base=0):
     world = np.zeros(WorldSize)
-    for i in tqdm(range(WorldSize[0])):
+    for i in tqdm(range(WorldSize[0]), disable=True):
         for j in range(WorldSize[1]):
             for k in range(WorldSize[2]):
                 world[i][j][k] = noise.pnoise3(i/scale, j/scale, k/scale,

@@ -7,6 +7,7 @@ import cv2
 import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 
 # Main Functions
 Nothing = None
@@ -18,6 +19,9 @@ def DepthFunc_GreyScaleDepth(I, options=None):
     return I
 
 # Mask Functions
+def Mask_Nothing(I):
+    return I
+
 def Mask_Circular(I, r):
     r = int(r * min(I.shape[0], I.shape[1]))
     a, b = int(I.shape[0]/2), int(I.shape[1]/2)
@@ -64,6 +68,12 @@ def ColoriseTerrain2D_ValueThresholdColorMapped(terrain, thresholdColors=[[]], d
                     color_world[i, j] = th[2]
     return color_world
 
+def ColoriseTerrain2D_ValueThresholdColorMapped_Simple(terrain, thresholds=[], thresholdColors=[], defaultColor=[65, 105, 225]):
+    I_Colorised = np.ones((terrain.shape[0], terrain.shape[1], 3), dtype=int) * defaultColor
+    for i in range(len(thresholds)):
+        I_Colorised[terrain >= thresholds[i]] = thresholdColors[i]
+    return I_Colorised
+
 def ColoriseTerrain2D_ArchipelagoSimple(terrain, thresholds=[0.25, 0.6, 0.85, 0.95]):
     blue = [65, 105, 225]
     beach = [238, 214, 175]
@@ -79,6 +89,56 @@ def ColoriseTerrain2D_ArchipelagoSimple(terrain, thresholds=[0.25, 0.6, 0.85, 0.
         ], 
         defaultColor=blue)
     return color_world
+
+# Plot Functions
+def PlotDepths_Points(Depths, DepthLimits=None):
+    if DepthLimits is None:
+        DepthLimits = [np.min(Depths), np.max(Depths)]
+    X, Y = np.meshgrid(np.linspace(0, 1, Depths.shape[0]), np.linspace(0, 1, Depths.shape[1]))
+    Z = Depths
+
+    fig = plt.figure()
+    ax = plt.axes(projection='3d')
+    ax.scatter(X, Y, Z, c=Depths)
+    ax.set_zlim3d(DepthLimits[0], DepthLimits[1])
+        
+    return fig
+
+def PlotDepths_Planes(Depths, DepthLimits=None):
+    if DepthLimits is None:
+        DepthLimits = [np.min(Depths), max(np.max(Depths), 1.0)]
+    DepthLimits = np.array(DepthLimits)
+    BaseLimits = max(np.sum(DepthLimits)-1.0, 0.0) / 2
+
+
+    X, Y = np.meshgrid(np.linspace(0, 1, Depths.shape[1]), np.linspace(0, 1, Depths.shape[0]))
+    Z = Depths
+
+    fig = plt.figure()
+    ax = plt.axes(projection='3d')
+    ax.plot_surface(X, Y, Z, rstride=1, cstride=1, shade=True)
+    ax.set_zlim3d(DepthLimits[0], DepthLimits[1])
+    ax.set_xlim3d(0-BaseLimits, 1+BaseLimits)
+    ax.set_ylim3d(0-BaseLimits, 1+BaseLimits)
+    # ax.set_zscale(1.0)
+        
+    return fig
+
+def make_colormap(seq):
+    """Return a LinearSegmentedColormap
+    seq: a sequence of floats and RGB-tuples. The floats should be increasing
+    and in the interval (0,1).
+    """
+    seq = [(None,) * 3, 0.0] + list(seq) + [1.0, (None,) * 3]
+    cdict = {'red': [], 'green': [], 'blue': []}
+    for i, item in enumerate(seq):
+        if isinstance(item, float):
+            r1, g1, b1 = seq[i - 1]
+            r2, g2, b2 = seq[i + 1]
+            cdict['red'].append([item, r1, r2])
+            cdict['green'].append([item, g1, g2])
+            cdict['blue'].append([item, b1, b2])
+    return mcolors.LinearSegmentedColormap('CustomMap', cdict)
 
 # Driver Code
 # Params

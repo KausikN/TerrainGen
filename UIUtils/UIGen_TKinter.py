@@ -605,6 +605,8 @@ def RunScript_WithEffectsCodeProcess(ui_items, ParsedCode, EffectsCodeProcessFun
 
     # print(code_RE)
     print('\n\n')
+    # print(code_RE)
+    # print('\n\n')
 
     # Run the reconstructed Code
     print("Script Output:\n\n")

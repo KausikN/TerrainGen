@@ -1,5 +1,5 @@
 """
-Stream lit GUI for hosting HandwritingGen
+Stream lit GUI for hosting TerrainGen
 """
 
 # Imports

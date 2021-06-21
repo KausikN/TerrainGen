@@ -3,6 +3,16 @@
 
  Hosted at [https://infinityjoker-terrain-gen.herokuapp.com/](https://infinityjoker-terrain-gen.herokuapp.com/)
 
+# GUI
+ - Install streamlit using
+   ```
+   pip install streamlit
+   ```
+ - Launch Streamlit GUI in the repo folder by
+   ```
+   streamlit run app.py
+   ```
+
 # TerrainGen UI
 
  - Generate Terrains using UI easily

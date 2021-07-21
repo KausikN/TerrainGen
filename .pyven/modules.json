@@ -1,0 +1,277 @@
+{
+    "name": "TerrainGen",
+    "repoLink": "https://github.com/KausikN/TerrainGen",
+    "localPath": "E:/Github Codes and Projects/Projects/TerrainGen",
+    "modules": {
+        "app.py": {
+            "name": "app",
+            "type": "local",
+            "link": "https://github.com/KausikN/TerrainGen/blob/master/app.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": [
+                "numpy.py",
+                "streamlit.py",
+                "json.py",
+                "cv2.py",
+                "matplotlib/backends/backend_agg.py",
+                "TerrainGen.py"
+            ]
+        },
+        "TerrainGen.py": {
+            "name": "TerrainGen",
+            "type": "local",
+            "link": "https://github.com/KausikN/TerrainGen/blob/master/TerrainGen.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": [
+                "cv2.py",
+                "noise.py",
+                "functools.py",
+                "numpy.py",
+                "matplotlib.pyplot.py",
+                "tqdm.py",
+                "Utils/Utils.py",
+                "Utils/MeshLibrary.py"
+            ]
+        },
+        "TerrainGenUI.py": {
+            "name": "TerrainGenUI",
+            "type": "local",
+            "link": "https://github.com/KausikN/TerrainGen/blob/master/TerrainGenUI.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": [
+                "UIUtils/Py2UI.py"
+            ]
+        },
+        "UIUtils/Py2UI.py": {
+            "name": "Py2UI",
+            "type": "local",
+            "link": "https://github.com/KausikN/TerrainGen/blob/master/UIUtils/Py2UI.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "UIUtils",
+            "dependencies": [
+                "os.py",
+                "json.py",
+                "pickle.py",
+                "functools.py",
+                "UIUtils/PythonCodeTokenizer.py",
+                "UIUtils/UIGen_TKinter.py"
+            ]
+        },
+        "UIUtils/PythonCodeTokenizer.py": {
+            "name": "PythonCodeTokenizer",
+            "type": "local",
+            "link": "https://github.com/KausikN/TerrainGen/blob/master/UIUtils/PythonCodeTokenizer.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "UIUtils",
+            "dependencies": [
+                "re.py",
+                "json.py"
+            ]
+        },
+        "UIUtils/UIGen_TKinter.py": {
+            "name": "UIGen_TKinter",
+            "type": "local",
+            "link": "https://github.com/KausikN/TerrainGen/blob/master/UIUtils/UIGen_TKinter.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "UIUtils",
+            "dependencies": [
+                "os.py",
+                "json.py",
+                "tkinter.py",
+                "tkinter.py",
+                "PIL.py",
+                "tkinter.py",
+                "functools.py",
+                "UIUtils/Utils.py",
+                "UIUtils/PythonCodeTokenizer.py"
+            ]
+        },
+        "UIUtils/Utils.py": {
+            "name": "Utils",
+            "type": "local",
+            "link": "https://github.com/KausikN/TerrainGen/blob/master/UIUtils/Utils.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "UIUtils",
+            "dependencies": [
+                "sys.py",
+                "io.py",
+                "tkinter.py",
+                "tkinter.py"
+            ]
+        },
+        "Utils/MeshLibrary.py": {
+            "name": "MeshLibrary",
+            "type": "local",
+            "link": "https://github.com/KausikN/TerrainGen/blob/master/Utils/MeshLibrary.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "Utils",
+            "dependencies": [
+                "os.py",
+                "cv2.py",
+                "open3d.py",
+                "numpy.py"
+            ]
+        },
+        "Utils/Utils.py": {
+            "name": "Utils",
+            "type": "local",
+            "link": "https://github.com/KausikN/TerrainGen/blob/master/Utils/Utils.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "Utils",
+            "dependencies": [
+                "cv2.py",
+                "numpy.py",
+                "tqdm.py",
+                "matplotlib.pyplot.py",
+                "matplotlib.colors.py"
+            ]
+        },
+        "open3d.py": {
+            "name": "open3d",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "matplotlib.pyplot.py": {
+            "name": "matplotlib.pyplot",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "PIL.py": {
+            "name": "PIL",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "sys.py": {
+            "name": "sys",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "os.py": {
+            "name": "os",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "re.py": {
+            "name": "re",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "functools.py": {
+            "name": "functools",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "io.py": {
+            "name": "io",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "matplotlib.colors.py": {
+            "name": "matplotlib.colors",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "streamlit.py": {
+            "name": "streamlit",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "tqdm.py": {
+            "name": "tqdm",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "tkinter.py": {
+            "name": "tkinter",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "json.py": {
+            "name": "json",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "numpy.py": {
+            "name": "numpy",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "pickle.py": {
+            "name": "pickle",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "matplotlib/backends/backend_agg.py": {
+            "name": "backend_agg",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "matplotlib/backends",
+            "dependencies": []
+        },
+        "noise.py": {
+            "name": "noise",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        },
+        "cv2.py": {
+            "name": "cv2",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/TerrainGen",
+            "subDir": "",
+            "dependencies": []
+        }
+    }
+}

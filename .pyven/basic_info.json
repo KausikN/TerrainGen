@@ -1,0 +1,11 @@
+{
+    "repo_name": "TerrainGen",
+    "requirements": [
+        "streamlit",
+        "numpy",
+        "opencv-python-headless",
+        "noise",
+        "matplotlib",
+        "tqdm"
+    ]
+}

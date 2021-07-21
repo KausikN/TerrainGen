@@ -1,18 +1,20 @@
 # TerrainGen
  A 2D and 3D realistic Terrain Generator Tool using python
 
- Hosted at [https://infinityjoker-terrain-gen.herokuapp.com/](https://infinityjoker-terrain-gen.herokuapp.com/)
-
 # GUI
+[![https://infinityjoker-apps.herokuapp.com/](https://pyheroku-badge.herokuapp.com/?app=infinityjoker-apps&style=plastic)](https://infinityjoker-apps.herokuapp.com/)
 
- - GUI Hosted using streamlit
- - Run [StartUI.sh](StartUI.sh) to view the app on your browser!
+ - GUI built using streamlit
+ - To use app locally,
+    - Clone the repo and run [StartUI.sh](StartUI.sh) to view the app on your browser!
+ - App is also hosted remotely on heroku using my common host app,
+    - [https://infinityjoker-apps.herokuapp.com/](https://infinityjoker-apps.herokuapp.com/)
 
-# TerrainGen UI
+    - In the Common Host App, simply choose a project to load and click load and deploy.
 
- - Generate Terrains using UI easily
+    - Then go ahead and use the app! :)
 
-    ![TerrainGen UI](DocImages/TerrainGenUI.PNG)
+    - If you want to change to another app, simply click on View Other Projects in top left and choose any other project and load and deploy.
 
 # Generate 2D Terrains
 

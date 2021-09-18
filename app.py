@@ -158,7 +158,7 @@ def UI_WorldSizeParams():
 
 def UI_GenNoiseParams():
     USERINPUT_Seed = st.slider("Seed", 0, 400, 0, 1, key="USERINPUT_Seed")
-    col1, col2, col3 = st.beta_columns(3)
+    col1, col2, col3 = st.columns(3)
     USERINPUT_Scale = col1.slider("Scale", 0, 500, 100, 50, key="USERINPUT_Scale")
     USERINPUT_Octaves = col2.slider("Octaves", 1, 12, 6, 1, key="USERINPUT_Octaves")
     USERINPUT_Persistence = col3.slider("Persistence", 0.0, 1.0, 0.5, 0.1, key="USERINPUT_Persistence")
@@ -170,12 +170,12 @@ def UI_GenNoiseParams():
 
 def UI_Coloriser():
     USERINPUT_ColorCount = st.slider("Terrain Type Count", 2, 10, step=1, value=5)
-    col1, indIcol = st.beta_columns(2)
+    col1, indIcol = st.columns(2)
     USERINPUT_BaseColor = list(Hex_to_RGB(col1.color_picker("Select Base Color", value=RGB_to_Hex(DEFAULT_COLORISER_BASECOLOR))))
     USERINPUT_Thresholds = []
     USERINPUT_ThresholdColors = []
     for i in range(USERINPUT_ColorCount-1):
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
         color = list(Hex_to_RGB(col1.color_picker("Terrain #" + str(i+1) + " color", value=RGB_to_Hex(DEFAULT_COLORISER_COLORS[i % len(DEFAULT_COLORISER_COLORS)]))))
         th = col2.slider("Terrain #" + str(i+1) + " minimum threshold", 0.0, 1.0, DEFAULT_COLORISER_THRESHOLDS[i % len(DEFAULT_COLORISER_THRESHOLDS)], 0.05)
         USERINPUT_Thresholds.append(th)

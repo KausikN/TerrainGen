@@ -103,29 +103,29 @@ def main(WorldSize, Funcs, savePath, saveName, DepthScale=100, ExportDepthMultip
         mesh = MeshLibrary.DepthImage_to_Terrain(Depths*ExportDepthMultiplier, I_Noise, savePath + saveName + '.png', name=saveName, exportPath=savePath + saveName + '.obj')
     plt.show()
 
-# # Driver Code
-# # Params
-# WorldSize = (256, 256)
+# Driver Code
+# Params
+WorldSize = (256, 256)
 
-# GenFunc = functools.partial(GeneratePerlinNoise_2D, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, base=1)
+GenFunc = functools.partial(GeneratePerlinNoise_2D, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, base=7)
 
-# MaskFunc = None#functools.partial(Utils.Mask_CircularSmooth, r=0.75, s1=2.0, s2=200)
+MaskFunc = None#functools.partial(Utils.Mask_CircularSmooth, r=0.75, s1=2.0, s2=200)
 
-# ColoriseFunc = functools.partial(Utils.ColoriseTerrain2D_ArchipelagoSimple, thresholds=[0.25, 0.4, 0.85, 0.95])
+ColoriseFunc = functools.partial(Utils.ColoriseTerrain2D_ArchipelagoSimple, thresholds=[0.25, 0.4, 0.85, 0.95])
 
-# DepthFunc = functools.partial(Utils.DepthFunc_GreyScaleDepth)
-# DepthScale = 100
-# ExportDepthMultiplier = 1
+DepthFunc = functools.partial(Utils.DepthFunc_GreyScaleDepth)
+DepthScale = 100
+ExportDepthMultiplier = 1
 
-# savePath = 'GeneratedVisualisations/'
-# saveName = 'Terrain_1'
+savePath = 'GeneratedVisualisations/'
+saveName = 'Terrain_3'
 
-# normalise = True
-# display = True
-# save = False
-# export3DModel = False
-# # Params
+normalise = True
+display = False
+save = True
+export3DModel = True
+# Params
 
-# # RunCode
-# Funcs = {"Gen": GenFunc, "Mask": MaskFunc, "Colorise": ColoriseFunc, "Depth": DepthFunc}
-# main(WorldSize, Funcs, savePath, DepthScale=DepthScale, ExportDepthMultiplier=ExportDepthMultiplier, normalise=normalise, display=display, save=save, export3DModel=export3DModel)
+# RunCode
+Funcs = {"Gen": GenFunc, "Mask": MaskFunc, "Colorise": ColoriseFunc, "Depth": DepthFunc}
+main(WorldSize, Funcs, savePath, saveName, DepthScale=DepthScale, ExportDepthMultiplier=ExportDepthMultiplier, normalise=normalise, display=display, save=save, export3DModel=export3DModel)

@@ -10,8 +10,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-from Utils import Utils
-from Utils import MeshLibrary
+from Utils.Utils import *
+from Utils.MeshLibrary import *
 
 # Main Functions
 def GeneratePerlinNoise_2D(WorldSize, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, repeatx=1024, repeaty=1024, base=0):
@@ -84,6 +84,7 @@ def main(WorldSize, Funcs, savePath, saveName, DepthScale=100, ExportDepthMultip
     if ColoriseFunc is not None:
         print("Colorising Values...")
         I_Colorised = ColoriseFunc(I_Noise)
+        I_Colorised = I_Colorised * 255
 
         if save:
             cv2.imwrite(savePath + saveName + "_Colorised" + '.png', cv2.cvtColor(I_Colorised.astype(np.uint8), cv2.COLOR_BGR2RGB))
@@ -100,32 +101,32 @@ def main(WorldSize, Funcs, savePath, saveName, DepthScale=100, ExportDepthMultip
         # Texture = (I_Noise*255).astype(np.uint8)
         Texture = I_Colorised.astype(np.uint8)
         cv2.imwrite(savePath + saveName + '.png', cv2.cvtColor(Texture, cv2.COLOR_BGR2RGB))
-        mesh = MeshLibrary.DepthImage_to_Terrain(Depths*ExportDepthMultiplier, I_Noise, savePath + saveName + '.png', name=saveName, exportPath=savePath + saveName + '.obj')
+        mesh = DepthImage_to_Terrain(Depths*ExportDepthMultiplier, I_Noise, savePath + saveName + '.png', name=saveName, exportPath=savePath + saveName + '.obj')
     plt.show()
 
 # Driver Code
-# Params
-WorldSize = (256, 256)
+# # Params
+# WorldSize = (512, 512)
 
-GenFunc = functools.partial(GeneratePerlinNoise_2D, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, base=7)
+# GenFunc = functools.partial(GeneratePerlinNoise_2D, scale=100.0, octaves=6, persistence=0.5, lacunarity=2.0, base=7)
 
-MaskFunc = None#functools.partial(Utils.Mask_CircularSmooth, r=0.75, s1=2.0, s2=200)
+# MaskFunc = functools.partial(Mask_CircularSmooth, r=0.75, s1=2.0, s2=200)
 
-ColoriseFunc = functools.partial(Utils.ColoriseTerrain2D_ArchipelagoSimple, thresholds=[0.25, 0.4, 0.85, 0.95])
+# ColoriseFunc = functools.partial(ColoriseTerrain2D_ArchipelagoSimple, thresholds=[0.25, 0.4, 0.85, 0.95])
 
-DepthFunc = functools.partial(Utils.DepthFunc_GreyScaleDepth)
-DepthScale = 100
-ExportDepthMultiplier = 1
+# DepthFunc = functools.partial(DepthFunc_GreyScaleDepth)
+# DepthScale = 100
+# ExportDepthMultiplier = 1
 
-savePath = 'GeneratedVisualisations/'
-saveName = 'Terrain_3'
+# savePath = 'GeneratedVisualisations/'
+# saveName = 'Terrain_3'
 
-normalise = True
-display = False
-save = True
-export3DModel = True
-# Params
+# normalise = True
+# display = False
+# save = True
+# export3DModel = True
+# # Params
 
-# RunCode
-Funcs = {"Gen": GenFunc, "Mask": MaskFunc, "Colorise": ColoriseFunc, "Depth": DepthFunc}
-main(WorldSize, Funcs, savePath, saveName, DepthScale=DepthScale, ExportDepthMultiplier=ExportDepthMultiplier, normalise=normalise, display=display, save=save, export3DModel=export3DModel)
+# # RunCode
+# Funcs = {"Gen": GenFunc, "Mask": MaskFunc, "Colorise": ColoriseFunc, "Depth": DepthFunc}
+# main(WorldSize, Funcs, savePath, saveName, DepthScale=DepthScale, ExportDepthMultiplier=ExportDepthMultiplier, normalise=normalise, display=display, save=save, export3DModel=export3DModel)

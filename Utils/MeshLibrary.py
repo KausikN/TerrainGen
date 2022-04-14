@@ -10,6 +10,9 @@ import numpy as np
 
 # Main Functions
 def DepthImage_to_Terrain(depths, I, ImagePath, name='Test', exportPath=None):
+    '''
+    Converts Depth Image to 3D Mesh
+    '''
     vertexTextureUVs = []
     vertexNormals = [[0.0, 1.0, 0.0]]
     
@@ -49,54 +52,11 @@ def DepthImage_to_Terrain(depths, I, ImagePath, name='Test', exportPath=None):
     
     return mesh
 
-def Points_to_3DModel(points, colors, method='poisson', exportPath=None, displayMesh=True):
-    pcd = open3d.geometry.PointCloud()
-    pcd.points = open3d.utility.Vector3dVector(points)
-    pcd.colors = open3d.utility.Vector3dVector(colors)
-    pcd.estimate_normals()
-    print(np.asarray(pcd.normals))
-
-    if displayMesh:
-        open3d.visualization.draw_geometries([pcd])
-
-    final_mesh = None
-    if method == 'Poisson':
-        # Poisson Reconstruction
-        final_mesh = PoissonReconstruction(pcd)
-    else:
-        # Ball Rolling Algo
-        final_mesh = BallRollingAlgo(pcd)
-
-    # Export Mesh
-    if exportPath is not None:
-        open3d.io.write_triangle_mesh(exportPath, final_mesh)
-
-    return final_mesh
-
-def BallRollingAlgo(pcd):
-    distances = pcd.compute_nearest_neighbor_distance()
-    avg_dist = np.mean(distances)
-    radius = 30 * avg_dist
-
-    bpa_mesh = open3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(pcd, open3d.utility.DoubleVector([radius, radius * 2]))
-    # Decimate to lower triangles
-    # bpa_mesh = bpa_mesh.simplify_quadric_decimation(100000)
-    # Clean Mesh
-    bpa_mesh.remove_degenerate_triangles()
-    bpa_mesh.remove_duplicated_triangles()
-    bpa_mesh.remove_duplicated_vertices()
-    bpa_mesh.remove_non_manifold_edges()
-
-    return bpa_mesh
-
-def PoissonReconstruction(pcd):
-    poisson_mesh = open3d.geometry.TriangleMesh.create_from_point_cloud_poisson(pcd, depth=8, width=0, scale=1.1, linear_fit=False)[0]
-    bbox = pcd.get_axis_aligned_bounding_box()
-    p_mesh_crop = poisson_mesh.crop(bbox)
-    return p_mesh_crop
-
-# OBJ Writer Functions
+# OBJ Functions
 class Object3D:
+    '''
+    3D Object
+    '''
     def __init__(self, name, vertices, faceMaps, imgPath="", vertexTextureUVs=None, vertexNormals=None):
         self.name = name
         self.imgPath = imgPath
@@ -109,12 +69,10 @@ class Object3D:
         if self.vertexNormals is None:
             self.vertexNormals = [[0.0, 0.0, 0.0]]
 
-# def OBJRead(objPath):
-#     objData = open(objPath, 'r').read().split('\n')
-
-
-
 def OBJWrite(obj, savePath):
+    '''
+    Writes OBJ File with the given 3D Object data
+    '''
     """
     # Blender v2.81 (sub 16) OBJ File: ''
     # www.blender.org
@@ -183,6 +141,9 @@ def OBJWrite(obj, savePath):
     open(savePath, 'w').write('\n'.join(OBJTextLines))
 
 def MtlWrite(obj, savePath):
+    '''
+    Writes MTL File with the given 3D Object data
+    '''
     """
     # Blender MTL File: 'None'
     # Material Count: 1
@@ -219,6 +180,9 @@ def MtlWrite(obj, savePath):
     open(savePath, 'w').write('\n'.join(MtlTextLines))
 
 def Get6DecFloatString(val):
+    '''
+    Converts a float to a string with 6 decimal places
+    '''
     return str(round(float(val), 6))
     val = round(float(val), 6)
     # print(val)
@@ -228,26 +192,3 @@ def Get6DecFloatString(val):
     return strval
 
 # Driver Code
-# depths = np.array([
-#     [0, 0], 
-#     [0, 0]
-# ])
-# colors = np.array([])
-# exportPath = 'TestImgs/Testt.obj'
-# DepthImage_to_Terrain(depths, colors, 'Test', exportPath)
-
-
-
-# mesh = open3d.io.read_triangle_mesh(exportPath)
-# print(np.asarray(mesh.triangle_normals))
-# mesh.compute_vertex_normals()
-# print(np.asarray(mesh.triangle_normals))
-
-# v_uv = np.asarray(vertexTextureUVs)
-# # v_uv = np.concatenate((v_uv, v_uv, v_uv), axis=0)
-# mesh.triangle_uvs = open3d.utility.Vector2dVector(v_uv)
-
-# mesh.textures = [open3d.geometry.Image(I)]
-
-# open3d.visualization.draw_geometries([mesh])
-# open3d.io.write_triangle_mesh(exportPath, mesh, compressed=True)
